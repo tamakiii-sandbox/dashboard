@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  php-fpm:
+    build:
+      context: .
+      target: ${TARGET:-production-pseudo}
+    volumes:
+      - .:/usr/app/dashboard
+
+  nginx:
+    build:
+      context: docker/nginx
+      target: ${TARGET:-production-pseudo}
+    ports:
+      - 8080:80
+    volumes:
+      - .:/usr/app/dashboard
+
+  mysql:
+    image: mysql:5.7.30
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
