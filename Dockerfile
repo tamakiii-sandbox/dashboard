@@ -5,6 +5,19 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php composer-setup.php --install-dir=/usr/local/sbin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      git \
+      && \
+    apt autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony/bin/symfony /usr/local/sbin/symfony
+
+WORKDIR /usr/app/dashboard
+
 # --
 
 FROM production-pseudo as development
