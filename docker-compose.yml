@@ -26,5 +26,12 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  graphql:
+    build: graphql
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/app/dashboard
+
 volumes:
   mysql_data:
