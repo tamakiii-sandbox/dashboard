@@ -8,6 +8,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       git \
+      less \
       && \
     apt autoremove -y && \
     apt-get clean && \
