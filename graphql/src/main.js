@@ -1,14 +1,15 @@
+const fs = require('fs')
+const path = require('path')
 const { ApolloServer, gql } = require('apollo-server')
-// const { typeDefs, resolvers } = require('./schema')
+const schema = fs.readFileSync(path.join(__dirname, 'schema.graphql'))
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`
+const typeDefs = gql`${schema}`
+
 const resolvers = {
   Query: {
-    hello: () => 'world'
+    hello: () => {
+      return Date.now()
+    }
   }
 }
 
