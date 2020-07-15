@@ -2,7 +2,7 @@ version: "3.8"
 services:
   admin:
     build:
-      context: .
+      context: admin
       target: ${TARGET:-production-pseudo}
     volumes:
       - .:/usr/app/dashboard
