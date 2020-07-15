@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony/bin/symfony /usr/local/sbin/symfony
 
-WORKDIR /usr/app/dashboard
+WORKDIR /usr/app/dashboard/admin
 
 # --
 
