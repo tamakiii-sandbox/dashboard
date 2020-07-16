@@ -4,6 +4,8 @@ services:
     build:
       context: ./admin
       target: ${TARGET:-production-pseudo}
+    environment:
+      DATABASE_URL: "mysql://symfony:pass@mysql:3306/dashboard?serverVersion=5.7"
     volumes:
       - .:/usr/app/dashboard
 
