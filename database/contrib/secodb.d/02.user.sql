@@ -1,1 +1,1 @@
-INSERT INTO user VALUES(NULL, 'john', '["ROLE_ADMIN"]', 'pass');
+INSERT INTO user VALUES(NULL, 'john', '["ROLE_ADMIN"]', 'pass', null);
