@@ -1,4 +1,4 @@
-.PHONY: help clean
+.PHONY: help install dependencies clean
 
 help:
 	@cat $(firstword $(MAKEFILE_LIST))
