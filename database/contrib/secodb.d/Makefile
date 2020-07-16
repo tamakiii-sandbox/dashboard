@@ -22,3 +22,4 @@ $(TARGETS):
 	mysql -h $(HOST) -u $(USER) -p$(PASSWORD) $(DATABASE) < $(subst ~,,$@) > $@
 
 clean:
+	rm $(TARGETS)
