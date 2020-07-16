@@ -1,4 +1,4 @@
-.PHONY: help install dependencies build clean
+.PHONY: help install dependencies build migrate clean
 .PHONY: install-dev install-debug
 
 TARGET := production-pseudo
@@ -20,6 +20,12 @@ dependencies:
 
 build:
 	docker-compose build
+
+migrate:
+	docker-compose up -d mysql
+	docker-compose exec mysql timeout 60s env MYSQL_PWD=password bash -c 'until (mysqladmin ping -h 127.0.0.1 2>&1 | grep -q alive;) do echo -n .; sleep 1; done; echo'
+	docker-compose run --rm --entrypoint bash flyway -c 'make -C dashboard migrate'
+	docker-compose stop mysql
 
 .env:
 	echo "TARGET=$(TARGET)" > $@
