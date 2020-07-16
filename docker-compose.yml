@@ -20,11 +20,9 @@ services:
     image: mysql:5.7.30
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: symfony
-      MYSQL_USER: symfony
-      MYSQL_PASSWORD: pass
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./database/contrib/initdb.d:/docker-entrypoint-initdb.d
 
   graphql:
     build: graphql
