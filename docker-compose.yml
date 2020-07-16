@@ -24,6 +24,14 @@ services:
       - mysql_data:/var/lib/mysql
       - ./database/contrib/initdb.d:/docker-entrypoint-initdb.d
 
+  flyway:
+    build:
+      context: ./database
+      target: ${TARGET:-production-pseudo}
+    working_dir: /usr/app/dashboard/database
+    volumes:
+      - .:/usr/app/dashboard
+
   graphql:
     build: graphql
     ports:
