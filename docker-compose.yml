@@ -2,14 +2,14 @@ version: "3.8"
 services:
   admin:
     build:
-      context: admin
+      context: ./admin
       target: ${TARGET:-production-pseudo}
     volumes:
       - .:/usr/app/dashboard
 
   nginx:
     build:
-      context: docker/nginx
+      context: ./docker/nginx
       target: ${TARGET:-production-pseudo}
     ports:
       - 8080:80
