@@ -2,14 +2,16 @@ version: "3.8"
 services:
   admin:
     build:
-      context: admin
+      context: ./admin
       target: ${TARGET:-production-pseudo}
+    environment:
+      DATABASE_URL: "mysql://symfony:pass@mysql:3306/dashboard?serverVersion=5.7"
     volumes:
       - .:/usr/app/dashboard
 
   nginx:
     build:
-      context: docker/nginx
+      context: ./docker/nginx
       target: ${TARGET:-production-pseudo}
     ports:
       - 8080:80
@@ -20,11 +22,17 @@ services:
     image: mysql:5.7.30
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: symfony
-      MYSQL_USER: symfony
-      MYSQL_PASSWORD: pass
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./database/contrib/initdb.d:/docker-entrypoint-initdb.d
+
+  flyway:
+    build:
+      context: ./database
+      target: ${TARGET:-production-pseudo}
+    working_dir: /usr/app/dashboard/database
+    volumes:
+      - .:/usr/app/dashboard
 
   graphql:
     build: graphql
